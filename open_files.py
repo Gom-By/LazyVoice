@@ -1,49 +1,57 @@
 import os
-import subprocess
+import manage_settings as ms
 from difflib import SequenceMatcher
+import webbrowser as wb
 
-FILEBROWSER_PATH = os.path.join(os.getenv('WINDIR'), 'explorer.exe')
-BASE_DIR = 'C:/Users/nahar/Desktop/'
+DATA = ms.config()
+
+BASE_DIR = DATA['base_dir']
 APPS = os.listdir(BASE_DIR)
+
+######################################## CLASS ######################################
+
+class Record:
+    def __init__(self, command, key, keys):
+        self.command = command
+        self.key = key
+        self.keys = keys
 
 ######################################## FUNCTIONS ##################################
 
-def explore(path): 
-    """ Open a file or directory from path in explorer """
-    # explorer would choke on forward slashes
-    path = os.path.normpath(path)
+def similar(a, b): # str only
+    return (a.lower() == b.lower()) or SequenceMatcher(None, a, b).ratio() >= 0.75
 
-    if os.path.isdir(path):
-        subprocess.run([FILEBROWSER_PATH, path])
-    elif os.path.isfile(path):
-        subprocess.run([FILEBROWSER_PATH, '/select,', path])
-
-
-def similar(a, b):
-    return SequenceMatcher(None, a, b).ratio()
-
-def main():
+def open_file(data):
     PATH = ''
-
-    with open("record.txt", 'r', encoding="utf-8") as f:
-        h = f.readline()
-        command = h.split()[0]
-        app = h.split()[1]
-
     for i in range(len(APPS)):
-        # path, exetension = os.path.splitext(path) --> path = 'C:/chemin' ; extension = '.txt'
-        if len(APPS[i].split('.')) >= 2:
-            file_type = APPS[i].split('.')[1]
-        else : 
-            file_type = 'dir'
-        name = APPS[i].split('.')[0]
-        
-        if (app.lower() == name.lower()) or (similar(app, name)>= 0.75):
-            if file_type != 'dir':
-                PATH = BASE_DIR + APPS[i]
-                print(PATH)
+        name = APPS[i].split('.')[0] # app name in desktop
+    
+        if similar(data.key, name):
+            PATH = BASE_DIR + APPS[i]
+            print(PATH)
     return PATH
 
-def exec():
-    execute = main()
-    os.startfile(execute)
+def search_browser(data):
+    if data.keys!=[]:
+        SITE = data.key
+        PARAMS = '+'.join(data.keys)
+        if similar(SITE, 'amazon'): 
+            search = f'https://www.amazon.com/s?k={PARAMS}'
+        else:
+            search = f'https://www.{SITE}.com/search?q={PARAMS}'
+        
+        print(search)
+    return search
+
+def exec(record):
+    command = record.split()[0]
+    key = record.split()[1]
+    keys = record.split()[2:] if len(record.split()) else ''
+    data = Record(command, key, keys)
+
+    if similar(command, 'ouvre'):
+        execute = open_file(data)
+        os.startfile(execute)
+    elif similar(command, 'cherche'):
+        search = search_browser(data)
+        wb.open(search) 
