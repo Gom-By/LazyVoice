@@ -1,0 +1,93 @@
+{
+    "name": "LazyVoice",
+    "description": "",
+    "version": "0.0.1",
+    "files_required": [
+        "settings_manager.py",
+        "speech_recognition.py"
+    ],
+    "documentation": {
+        "url": "https://site"
+    },
+    "contributors": [
+        {
+            "name": "Guerby Naharro",
+            "email": "guerby@example.com"
+        },
+        {
+            "name": "Thibault Forret",
+            "email": "thibault@example.com"
+        },
+        {
+            "name": "Theo Semavoine",
+            "email": "truc@v.fr"
+        }
+    ],
+    "dependencies": {
+        "pyaudio": "",
+        "dep2": "3.40",
+        "dep3": "6.7"
+    },
+    "user": {
+        "name": "Pseudo",
+        "email": "example@g.c",
+        "profil_picture": "C:/example.png ou https://example"
+    },
+    "app": {
+        "use_vocal": "Yes",
+        "active_keybinds": "Yes",
+        "default_interface-mode": "Yes",
+        "default_keywords": [
+            "ouvre",
+            "cherche",
+            "parametre"
+        ],
+        "language": "fr-FR",
+        "adjust_noise": "on",
+        "default_searching_site": "google",
+        "default_directory": "C:/Users/nahar/Desktop",
+        "folders_to_search": [
+            "C:/user/desktop",
+            "D:/folder_example"
+        ],
+        "run_in_background": "No",
+        "stop_auto": {
+            "condition": {
+                "batterie": "50%",
+                "app_on": [
+                    "Valorant",
+                    "Apex"
+                ],
+                "command": "exit voice"
+            },
+            "on_shut": {
+                "minisize_app": "Yes",
+                "stop_macro": "Yes",
+                "stop_vocal": "Yes"
+            }
+        },
+        "keywords": {
+            "example": "ouvre Discord",
+            "other": "cherche tuto cuisine"
+        },
+        "keybinds_settings": [
+            "F1",
+            "F2",
+            "F3",
+            "F4",
+            "F5"
+        ],
+        "keybinds_voc": {
+            "/commentary to see keyboard codes/": "https://www.oreilly.com/library/view/javascript-dhtml/9780596514082/apb.html",
+            "F1+Alt": "ouvre Discord",
+            "F2+H": "cherche tuto cuisine",
+            "F3+Crtl": "truc",
+            "F4+Maj": "autre",
+            "F5+Y+2": "command"
+        },
+        "preferences": {
+            "example1": "",
+            "example2": ""
+        }
+    }
+}
